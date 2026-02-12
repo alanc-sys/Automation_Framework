@@ -45,14 +45,14 @@ public class LoginPage {
         return driver.findElement(errorMessage).getText();
     }
 
-    public void clearInputs() {
-        // delete user
+    public void clearUsername() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(usernameInput));
         driver.findElement(usernameInput).sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
 
-        // delete Password
+    }
+
+    public void clearPassword() {
         wait.until(ExpectedConditions.visibilityOfElementLocated(passwordInput));
         driver.findElement(passwordInput).sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-
     }
 }

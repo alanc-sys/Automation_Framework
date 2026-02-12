@@ -1,5 +1,6 @@
 package steps;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -28,22 +29,46 @@ public class LoginPageSteps {
         loginPage.enterPassword(ConfigReader.getProperties("password"));
     }
 
-    @When("the user clears the input fields")
+    @And("the user clears the input fields")
     public void the_user_clears_the_input_fields() {
-        loginPage.clearInputs();
+        loginPage.clearUsername();
+        loginPage.clearPassword();
     }
 
-    @When("the user clicks the Login button")
+    @And("the user clicks the Login button")
     public void the_user_clicks_the_login_button() {
         loginPage.clickLoginButton();
+    }
+
+    @When("the user enters any username {string}")
+    public void the_user_enters_any_username(String string) {
+        loginPage.enterUsername(string);
+    }
+
+    @When("the user enters any password {string}")
+    public void the_user_enters_any_password(String string) {
+        loginPage.enterPassword(string);
+    }
+
+    @When("the user clears the {string} input")
+    public void the_user_clears_the_input(String string) {
+        loginPage.clearPassword();
+    }
+    @When("the user enters a valid username {string}")
+    public void the_user_enters_a_valid_username(String string) {
+        loginPage.enterUsername(string);
+    }
+    @When("the user enters a valid password {string}")
+    public void the_user_enters_a_valid_password(String string) {
+        loginPage.enterPassword(string);
     }
 
     @Then("the error message {string} should be displayed")
     public void the_error_message_should_be_displayed(String expectedErrorMessage) {
         String actualMessage = loginPage.getErrorMessage();
         Assert.assertTrue(
-                "El mensaje de error no coincide. Esperado: " + expectedErrorMessage +
-                        " | Actual: " + actualMessage,
+                "The error message does not match. Expected: " + expectedErrorMessage +
+                        " | Currently: " + actualMessage,
                 actualMessage.contains(expectedErrorMessage));
     }
 }
