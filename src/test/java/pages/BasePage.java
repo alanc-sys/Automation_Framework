@@ -9,8 +9,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 /**
- * Clase padre para todos los Page Objects.
- * Contiene la inicialización del driver y métodos genéricos para interactuar con elementos.
+ * Parent class for all Page Objects.
+ * Contains the driver initialization and generic methods to interact with elements.
  */
 
 public abstract class BasePage {
