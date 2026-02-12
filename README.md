@@ -1,59 +1,59 @@
-Final-Task
+# Automation Framework - Swag Labs 🤖
 
-Launch URL: https://www.saucedemo.com/
+## Description
 
-UC-1 Test Login form with empty credentials:
+A robust and scalable End-to-End (E2E) test automation framework for the [Swag Labs](https://www.saucedemo.com/) application. Built with **Java 11** and **Selenium WebDriver**, this project stands out for its professional architecture implementing the **Page Object Model (POM)**, Thread-Safe parallel execution, and dynamic browser configuration.
 
-Type any credentials into "Username" and "Password" fields.
+## 🎯 Objectives (Test Cases)
 
-Clear the inputs.
+The framework covers the following business scenarios defined in Gherkin (BDD):
 
-Hit the "Login" button.
+- **UC-1**: Error validation when attempting to login with empty fields.
+- **UC-2**: Error validation when the password field is omitted.
+- **UC-3**: Successful login flow verifying multiple users (Data Driven Testing using Scenario Outline).
 
-Check the error messages: "Username is required".
+## 🛠️ Tech Stack
 
-UC-2 Test Login form with credentials by passing Username:
+| Component | Technology / Version |
+|-----------|----------------------|
+| **Language** | Java 11 (OpenJDK) |
+| **Automation Engine** | Selenium WebDriver 4.28.1 |
+| **Dependency Manager** | Maven |
+| **Test Runner** | JUnit 4 |
+| **BDD Framework** | Cucumber 7.15.0 |
+| **Architecture** | Page Object Model (POM) |
+| **Concurrency** | Maven Surefire + ThreadLocal |
 
-Type any credentials in username.
+## 🏗️ Implemented Design Patterns
 
-Enter password.
+The code demonstrates an advanced level of test engineering through:
 
-Clear the "Password" input.
+1.  **Page Object Model (POM):** Logical separation between web elements (`pages`) and test steps (`steps`), utilizing an abstract `BasePage` to reuse common actions.
+2.  **Singleton:** Implemented in `DriverManager` to guarantee a global and controlled access point to the driver instance.
+3.  **Strategy / Factory (via Enum):** Use of `BrowserType` with `Supplier<WebDriver>` for polymorphic and clean browser creation (Chrome, Edge, Firefox, Safari).
+4.  **ThreadLocal Pattern:** Ensures Thread-Safety, allowing multiple browsers to run in parallel without session collisions.
 
-Hit the "Login" button.
+## 🌐 Supported Browsers
 
-Check the error messages: "Password is required".
+Thanks to the `BrowserType` implementation, the framework supports:
 
-UC-3 Test Login form with credentials by passing Username & Password:
+- Google Chrome (Default)
+- Microsoft Edge
+- Mozilla Firefox
+- Apple Safari
 
-Type credentials in username which are under Accepted username are sections.
+## 📋 Prerequisites
 
-Enter password as secret sauce.
+- **Java JDK 11** or higher configured in the PATH.
+- **Maven 3.6+**.
+- Web browsers installed corresponding to the tests.
 
-Click on Login and validate the title “Swag Labs” in the dashboard.
+## 🚀 Installation and Setup
 
-Provide parallel execution, add logging for tests and use Data Provider to parametrize tests.
+```bash
+# 1. Clone the repository
+git clone <REPOSITORY_URL>
+cd Automation_Framework
 
-Make sure that all tasks are supported by these 3 conditions: UC-1; UC-2; UC-3.
-
-Please, add task description as README.md into your solution!
-
-To perform the task use the various of additional options:
-
-Test Automation tool: Selenium WebDriver;
-
-Project Builder: Maven;
-
-Browsers: 1) Chrome; 2) Edge;
-
-Locators: XPath;
-
-Test Runner: JUnit;
-
-[Optional] Patterns: 1) Singleton; 2) Builder; 3) Decorator;
-
-[Optional] Test automation approach: BDD;
-
-Assertions: Built-in assertions of Unit-runners (JUnit vs TestNG);
-
-[Optional] Loggers: SLF4J.
+# 2. Install dependencies and build
+mvn clean install -DskipTests
