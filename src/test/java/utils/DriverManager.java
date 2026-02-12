@@ -1,6 +1,9 @@
 package utils;
 
 import org.openqa.selenium.WebDriver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 
 /**
@@ -13,6 +16,7 @@ import java.io.IOException;
  */
 
 public class DriverManager {
+    private static final Logger logger = LoggerFactory.getLogger(DriverManager.class.getName());
 
     private static DriverManager instance = null;
     private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
@@ -57,9 +61,14 @@ public class DriverManager {
             }
 
             try {
+                logger.info("Initializing WebDriver instance for: " + browser.toUpperCase());
+
                 BrowserType browserType = BrowserType.valueOf(browser.toUpperCase());
                 driver.set(browserType.createDriver());
+
             } catch (IllegalArgumentException e) {
+
+                logger.error("Unsupported browser type: " + browser);
                 throw new IllegalArgumentException(
                         "Browser '" + browser + "' is not supported. " +
                                 "Valid options are: chrome, firefox, edge, safari."

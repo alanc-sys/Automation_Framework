@@ -2,6 +2,9 @@ package steps;
 
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import utils.DriverManager;
 
 import java.io.IOException;
@@ -16,13 +19,18 @@ import java.io.IOException;
 
 public class Hooks {
 
+    private static final Logger logger = LoggerFactory.getLogger(Hooks.class);
+
+
     @Before
     public void setUp() throws IOException {
+        logger.info("---Starting new test Scenario---");
         DriverManager.getInstance().getDriver().manage().window().maximize();
     }
 
     @After
     public void tearDown() {
+        logger.info("---Ending test Scenario. Closing Browser---");
         DriverManager.getInstance().closeDriver();
     }
 }
