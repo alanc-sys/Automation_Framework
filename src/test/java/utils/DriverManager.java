@@ -8,6 +8,15 @@ import org.openqa.selenium.safari.SafariDriver;
 
 import java.io.IOException;
 
+/**
+ * Manages the {@link WebDriver} instance by implementing the Singleton design pattern.
+ * <p>
+ * This class uses {@link ThreadLocal} to store the driver, ensuring that
+ * each execution thread (in parallel tests) has its own isolated browser instance,
+ * preventing conflicts between concurrent tests.
+ * </p>
+ */
+
 public class DriverManager {
 
     private static DriverManager instance = null;
@@ -25,22 +34,19 @@ public class DriverManager {
 
     public WebDriver getDriver() throws IOException {
         if (driver.get() == null) {
-            String browserType  = ConfigReader.getProperties("browser");
-            if (browserType == null) browserType = "chrome";
+            String browser = ConfigReader.getProperties("browser");
+            if (browser == null || browser.isBlank()) {
+                browser = "chrome";
+            }
 
-            switch (browserType.toLowerCase()) {
-                case "chrome":
-                    driver.set(new ChromeDriver());
-                    break;
-                case "firefox":
-                    driver.set(new FirefoxDriver());
-                    break;
-                case "edge":
-                    driver.set(new EdgeDriver());
-                    break;
-                case "safari":
-                    driver.set(new SafariDriver());
-                    break;
+            try {
+                BrowserType browserType = BrowserType.valueOf(browser.toUpperCase());
+                driver.set(browserType.createDriver());
+            } catch (IllegalArgumentException e) {
+                throw new IllegalArgumentException(
+                        "Browser '" + browser + "' is not supported. " +
+                                "Valid options are: chrome, firefox, edge, safari."
+                );
             }
         }
         return driver.get();
@@ -48,7 +54,7 @@ public class DriverManager {
 
     public void closeDriver(){
         if(driver.get() != null){
-            driver.get().close();
+            driver.get().quit();
             driver.remove();
         }
     }
