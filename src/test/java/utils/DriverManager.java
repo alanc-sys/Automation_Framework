@@ -1,11 +1,6 @@
 package utils;
 
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.safari.SafariDriver;
-
 import java.io.IOException;
 
 /**
@@ -31,10 +26,32 @@ public class DriverManager {
         }
         return instance;
     }
-
+    /**
+     * Retrieves the WebDriver instance for the current thread, initializing it if necessary.
+     * <p>
+     * The browser selection follows this hierarchy of precedence:
+     * <ol>
+     * <li><b>Command Line (System Property):</b> Checks for the <code>-Dbrowser</code> property
+     * (e.g., <code>mvn test -Dbrowser=edge</code>). This enables CI/CD integration.</li>
+     * <li><b>Configuration File:</b> If no system property is found, it reads the <code>browser</code>
+     * property from the <code>config.properties</code> file.</li>
+     * <li><b>Default:</b> If both are null or empty, <b>Chrome</b> is used by default.</li>
+     * </ol>
+     * </p>
+     *
+     * @return The initialized WebDriver (Chrome, Firefox, Edge, or Safari).
+     * @throws IOException If an error occurs while reading the configuration file.
+     * @throws IllegalArgumentException If the specified browser is not supported.
+     */
     public WebDriver getDriver() throws IOException {
         if (driver.get() == null) {
-            String browser = ConfigReader.getProperties("browser");
+
+            String browser = System.getProperty("browser");
+
+            if  (browser == null || browser.isBlank()) {
+                 browser = ConfigReader.getProperties("browser");
+
+            }
             if (browser == null || browser.isBlank()) {
                 browser = "chrome";
             }

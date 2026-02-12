@@ -7,6 +7,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
+/**
+ * Defines supported browser types and encapsulates their creation logic.
+ * <p>
+ * Each enum constant holds a reference to the corresponding driver constructor,
+ * allowing on-demand instantiation without complex 'switch' statements.
+ * </p>
+ */
 public enum BrowserType {
 
     CHROME(ChromeDriver::new),

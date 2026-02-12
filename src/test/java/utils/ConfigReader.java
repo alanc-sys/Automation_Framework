@@ -8,6 +8,7 @@ import java.util.Properties;
  * Utility class to read configuration properties from config.properties file.
  * Implements Singleton pattern implicitly via static access.
  */
+
 public class ConfigReader {
     /**
      * Retrieves the value for a specific key from the properties file.

@@ -6,21 +6,19 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class InventoryPage {
+public class InventoryPage extends BasePage {
 
-    private WebDriver driver;
-    private WebDriverWait wait;
+    private final By headerTitle = By.xpath("//div[@class='app_logo']");
 
     public InventoryPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        super(driver);
     }
 
     public String getHeaderTitle() {
-        return driver.findElement(By.xpath("//div[@class='app_logo']")).getText();
+        return getText(headerTitle);
     }
 
     public String getUrl() {
-        return driver.getCurrentUrl();
+        return getCurrentUrl();
     }
 }

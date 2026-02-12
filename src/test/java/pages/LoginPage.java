@@ -7,52 +7,38 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
-public class LoginPage {
-
-    private final WebDriver driver;
-    private final WebDriverWait wait;
+public class LoginPage extends BasePage {
 
     private final By usernameInput = By.xpath("//input[@id='user-name']") ;
-
     private final By passwordInput = By.xpath("//input[@id='password']") ;
-
     private final By loginButton = By.xpath("//input[@id='login-button']") ;
-
     private final By errorMessage =  By.xpath("//h3[@data-test='error']") ;
 
     public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        super(driver);
     }
 
     public void enterUsername(String username) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(usernameInput));
-        driver.findElement(usernameInput).sendKeys(username);
+        sendKeys(usernameInput, username);
     }
 
     public void enterPassword(String password) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(passwordInput));
-        driver.findElement(passwordInput).sendKeys(password);
+        sendKeys(passwordInput, password);
     }
 
     public void clickLoginButton() {
-        wait.until(ExpectedConditions.elementToBeClickable(loginButton));
-        driver.findElement(loginButton).click();
+        click(loginButton);
     }
 
     public String getErrorMessage() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(errorMessage));
-        return driver.findElement(errorMessage).getText();
+        return getText(errorMessage);
     }
 
     public void clearUsername() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(usernameInput));
-        driver.findElement(usernameInput).sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
-
+        clearInput(usernameInput);
     }
 
     public void clearPassword() {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(passwordInput));
-        driver.findElement(passwordInput).sendKeys(Keys.chord(Keys.CONTROL, "a"), Keys.DELETE);
+        clearInput(passwordInput);
     }
 }
