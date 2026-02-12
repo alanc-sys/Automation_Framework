@@ -6,6 +6,8 @@ import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.safari.SafariDriver;
 
+import java.io.IOException;
+
 public class DriverManager {
 
     private static DriverManager instance = null;
@@ -21,7 +23,7 @@ public class DriverManager {
         return instance;
     }
 
-    public WebDriver getDriver(){
+    public WebDriver getDriver() throws IOException {
         if (driver.get() == null) {
             String browserType  = ConfigReader.getProperties("browser");
             if (browserType == null) browserType = "chrome";
@@ -42,7 +44,6 @@ public class DriverManager {
             }
         }
         return driver.get();
-
     }
 
     public void closeDriver(){
