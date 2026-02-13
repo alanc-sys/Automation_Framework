@@ -16,7 +16,7 @@ The framework covers the following business scenarios defined in Gherkin (BDD):
 
 | Component | Technology / Version |
 |-----------|----------------------|
-| **Language** | Java 11 (OpenJDK) |
+| **Language** | Java 11 or + (OpenJDK) |
 | **Automation Engine** | Selenium WebDriver 4.28.1 |
 | **Dependency Manager** | Maven |
 | **Test Runner** | JUnit 4 |
