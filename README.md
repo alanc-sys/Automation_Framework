@@ -52,7 +52,7 @@ Thanks to the `BrowserType` implementation, the framework supports:
 
 ```bash
 # 1. Clone the repository
-git clone <REPOSITORY_URL>
+git clone <https://github.com/alanc-sys/Automation_Framework.git>
 cd Automation_Framework
 
 # 2. Install dependencies and build
